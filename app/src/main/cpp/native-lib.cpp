@@ -51,11 +51,12 @@ Java_com_example_androlo_Detector_initDetector(JNIEnv *env, jobject thiz, jobjec
     // TODO: implement initDetector()
     TfLiteData* tf_data = (TfLiteData*)malloc(sizeof(TfLiteData));
     //load model bytes from assets
+
     long size = 0;
     if (!(env->IsSameObject(asset_manager, NULL))) {
         AAssetManager* mgr = AAssetManager_fromJava(env, asset_manager);
         AAsset* asset = AAssetManager_open(mgr, "yoloTiny.tflite", AASSET_MODE_UNKNOWN);
-        assert(asset != nullptr);
+        assert(asset != NULL);
         size = AAsset_getLength(asset);
         tf_data->model_bytes = (char*)malloc(sizeof(char) * size);
         AAsset_read(asset, tf_data->model_bytes, size);
