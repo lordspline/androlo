@@ -1,26 +1,24 @@
 package com.example.androlo
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.content.res.AssetManager
+import android.graphics.*
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.util.Log
 import android.util.Size
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
 import androidx.camera.core.ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_detection.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
-import android.Manifest
-import android.content.pm.PackageManager
-import android.graphics.*
-import android.util.Log
-import androidx.core.app.ActivityCompat
-import java.lang.Exception
 
 class Detector : AppCompatActivity(), ImageAnalysis.Analyzer {
-
     companion object {
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
@@ -45,7 +43,7 @@ class Detector : AppCompatActivity(), ImageAnalysis.Analyzer {
             startCamera()
         }
         cameraExecutor = Executors.newSingleThreadExecutor()
-        _paint.color = Color.RED
+        _paint.color = Color.GREEN
         _paint.style = Paint.Style.STROKE
         _paint.strokeWidth = 3f
         surfaceView.setZOrderOnTop(true)
@@ -151,4 +149,9 @@ class Detector : AppCompatActivity(), ImageAnalysis.Analyzer {
     private external fun destroyDetector(ptr: Long)
     private external fun detect(ptr: Long, srcAddr: ByteArray, width: Int, height: Int, rotation: Int): FloatArray
 
+    fun buttonStopDetectionClicked(view: View) {
+//        val intent = Intent(this, MainActivity::class.java)
+//        startActivity(intent)
+        finish()
+    }
 }

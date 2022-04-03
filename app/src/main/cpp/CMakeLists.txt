@@ -12,6 +12,7 @@ project("androlo")
 set (OpenCV_STATIC ON)
 set (OpenCV_DIR $ENV{OPENCV_ANDROID}/sdk/native/jni)
 message(${OpenCV_DIR})
+message("hihihi")
 find_package(OpenCV REQUIRED)
 
 set(TFlite_DIR $ENV{TFLITE_ANDROID})
