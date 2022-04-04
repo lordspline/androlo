@@ -1,6 +1,7 @@
 package com.example.androlo
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.AssetManager
 import android.graphics.*
@@ -14,7 +15,10 @@ import androidx.camera.core.ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_detection.*
+import java.time.Duration
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -45,7 +49,9 @@ class Detector : AppCompatActivity(), ImageAnalysis.Analyzer {
         cameraExecutor = Executors.newSingleThreadExecutor()
         _paint.color = Color.GREEN
         _paint.style = Paint.Style.STROKE
-        _paint.strokeWidth = 3f
+        _paint.strokeWidth = 2f
+        _paint.textSize = 40f
+        _paint.textAlign = Paint.Align.LEFT
         surfaceView.setZOrderOnTop(true)
         surfaceView.holder.setFormat(PixelFormat.TRANSPARENT)
     }
@@ -126,6 +132,7 @@ class Detector : AppCompatActivity(), ImageAnalysis.Analyzer {
         var xmax = detectionsArr[pos + 4]
         var ymax = detectionsArr[pos + 5]
         if (score == 0.0f) return
+        Snackbar.make(viewFinder, "Emergency Vehicle Detected", Snackbar.LENGTH_SHORT).show()
         val w = if (rotation == 0 || rotation == 180) frameWidth else frameHeight
         val h = if (rotation == 0 || rotation == 180) frameHeight else frameWidth
         val scaleX = viewFinder.width.toFloat()/w
@@ -143,6 +150,8 @@ class Detector : AppCompatActivity(), ImageAnalysis.Analyzer {
         p.lineTo(xmin, ymax)
         p.lineTo(xmin, ymin)
         canvas.drawPath(p, _paint)
+        val sc = "%.2f".format(score)
+        canvas.drawText(sc, xmin, ymin, _paint)
     }
 
     private external fun initDetector(assetManager: AssetManager?): Long
@@ -150,8 +159,8 @@ class Detector : AppCompatActivity(), ImageAnalysis.Analyzer {
     private external fun detect(ptr: Long, srcAddr: ByteArray, width: Int, height: Int, rotation: Int): FloatArray
 
     fun buttonStopDetectionClicked(view: View) {
-//        val intent = Intent(this, MainActivity::class.java)
-//        startActivity(intent)
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
         finish()
     }
 }

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <Button
             android:id="@+id/buttonStartDetection"
             android:layout_width="wrap_content"
@@ -15,5 +16,24 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:backgroundTint="#E02727"/>
+            android:backgroundTint="@color/sea_green"
+            android:layout_marginBottom="100dp"
+            android:textColor="@color/white"/>
+    <TextView
+            android:text="@string/app_name"
+            android:layout_width="216dp"
+            android:layout_height="62dp" android:id="@+id/textView"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/sea_green" android:textSize="48sp" android:textAlignment="center"
+            app:layout_constraintHorizontal_bias="0.497" app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="casual" android:layout_marginTop="140dp"/>
+    <TextView
+            android:text="@string/subtitle"
+            android:layout_width="284dp"
+            android:layout_height="76dp" android:id="@+id/textView2"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="20sp" android:textAlignment="center" android:textColor="@color/black"
+            android:fontFamily="monospace" app:layout_constraintTop_toBottomOf="@+id/textView"
+            app:layout_constraintBottom_toTopOf="@+id/buttonStartDetection" app:layout_constraintVertical_bias="0.463"
+            app:layout_constraintHorizontal_bias="0.496"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
