@@ -1,3 +1,4 @@
+# Android project gitignore
 *.iml
 .gradle
 /local.properties
